@@ -70,7 +70,7 @@ Avro schema for the response.
 }
 ```
 
-### Get shorten URL
+### Get shortened URL
 
 ```bash
 GET host.com/shortener/{codefortheurl}
