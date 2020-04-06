@@ -1,22 +1,26 @@
-# Shorty Serverless
+# Serverless URL shortener
 
-Serverless version of an url shortener.
+Serverless URL shortener.
 
-![Architecture](./docs/shorty2_0.png)
+## Architecture
+
+![Architecture](./docs/shortener.png)
 
 ## API Contract
 
-### Request example
+### Shorten URL
 
 ```bash
-POST host.com/shorty/shorten
+POST host.com/shortener/shorten
 ```
 
-### Payload schema
+### Request schema
+
+Avro schema for the request.
 
 ```json
 {
-  "name": "Url",
+  "name": "ShortenUrlRequest",
   "fields": [
     {
       "name": "url",
@@ -27,11 +31,21 @@ POST host.com/shorty/shorten
 }
 ```
 
-### Response schema
+#### Example
 
 ```json
 {
-  "name": "UrlResponse",
+  "url": "www.aridiculouslyunnecessaryverylongdns.com"
+}
+```
+
+### Response schema
+
+Avro schema for the response.
+
+```json
+{
+  "name": "ShortenUrlResponse",
   "fields": [
     {
       "name": "url",
@@ -46,3 +60,51 @@ POST host.com/shorty/shorten
   ]
 }
 ```
+
+#### Example
+
+```json
+{
+  "url": "www.aridiculouslyunnecessaryverylongdns.com",
+  "shortened_url": "codefortheurl"
+}
+```
+
+### Get shorten URL
+
+```bash
+GET host.com/shortener/{codefortheurl}
+```
+
+### Response schema
+
+Avro schema for the response.
+
+```json
+{
+  "name": "UrlResponse",
+  "fields": [
+    {
+      "name": "url",
+      "type": "string",
+      "doc": "Original URL"
+    }
+  ]
+}
+```
+
+#### Example
+
+```json
+{
+  "url": "www.aridiculouslyunnecessaryverylongdns.com"
+}
+```
+
+### Redirect to original URL
+
+```bash
+GET host.com/{codefortheurl}
+```
+
+Redirects to the original URL.
